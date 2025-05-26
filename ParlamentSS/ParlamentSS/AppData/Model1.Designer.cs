@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "S:\USERS\52-02\Филиппов Захар Геннадьевич\Practice\ParlamentSS\ParlamentSS\AppData\Model1.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\10220468\Documents\GitHub\ParlamentSS\ParlamentSS\ParlamentSS\AppData\Model1.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

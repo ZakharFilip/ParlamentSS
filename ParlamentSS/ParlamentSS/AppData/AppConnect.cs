@@ -8,6 +8,6 @@ namespace ParlamentSS.AppData
 {
     internal class AppConnect
     {
-      //  public static Entities1 model1;
+        public static Entities2 model1;
     }
 }

@@ -4,7 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ddffa242e5dd429784479bbebbcc47fb" Name="Diagram1" />
+      <Diagram DiagramId="953114c56ab943769e6e097ee2c230ab" Name="Diagram1">
+        <EntityTypeShape EntityType="ParlamentSSModel.TestTable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
