@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.35821.62 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParlamentSS", "ParlamentSS.csproj", "{3AC0CCA9-C612-4C53-9EE6-8CF7EB450FCE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParlamentSS", "ParlamentSS\ParlamentSS.csproj", "{93EAED13-9F30-4B53-BF0E-8F3623C3F69E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3AC0CCA9-C612-4C53-9EE6-8CF7EB450FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3AC0CCA9-C612-4C53-9EE6-8CF7EB450FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3AC0CCA9-C612-4C53-9EE6-8CF7EB450FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3AC0CCA9-C612-4C53-9EE6-8CF7EB450FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93EAED13-9F30-4B53-BF0E-8F3623C3F69E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93EAED13-9F30-4B53-BF0E-8F3623C3F69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93EAED13-9F30-4B53-BF0E-8F3623C3F69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93EAED13-9F30-4B53-BF0E-8F3623C3F69E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {41AF23C4-DFFB-480D-8F92-DC41FAA7E1CC}
+		SolutionGuid = {6E5D56E6-FBDD-4B6F-A975-18D82F1BD0D1}
 	EndGlobalSection
 EndGlobal
