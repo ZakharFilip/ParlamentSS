@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ParlamentSS.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Test.xaml
+    /// Логика взаимодействия для RegistrationWindow.xaml
     /// </summary>
-    public partial class Test : Window
+    public partial class RegistrationWindow : Window
     {
-        public Test()
+        public RegistrationWindow()
         {
             InitializeComponent();
         }

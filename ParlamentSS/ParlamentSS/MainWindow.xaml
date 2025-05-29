@@ -5,8 +5,115 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParlamentSS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Авторизация - Парламентская система" 
+        Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#2A3F54"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}" 
+                               TextDecorations="Underline"
+                               Foreground="{TemplateBinding Foreground}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#1E2A38"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <!-- Основной контейнер -->
+        <Grid Background="#F5F5F5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Левая часть - изображение или лого -->
+            <Border Grid.Column="0" Background="#2A3F54">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image Source="\Sourses\Sprites\parliament-logo.png" 
+                           Width="150" 
+                           Height="150"
+                           Margin="0 0 0 20"/>
+                    <TextBlock Text="Парламентская система"
+                               Foreground="White"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Правая часть - форма авторизации -->
+            <StackPanel Grid.Column="1" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Center"
+                        Width="300">
+
+                <TextBlock Text="Вход в систему"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Margin="0 0 0 30"
+                           HorizontalAlignment="Center"/>
+
+                <TextBox x:Name="UsernameTextBox"
+                         
+                         Margin="0 0 0 15"
+                         Height="40"
+                         FontSize="16"
+                         Padding="10"/>
+
+                <PasswordBox x:Name="PasswordBox"
+                            
+                             Margin="0 0 0 25"
+                             Height="40"
+                             FontSize="16"
+                             Padding="10"/>
+
+                <Button x:Name="LoginButton"
+                        Content="Войти"
+                        Height="45"
+                        Background="#2A3F54"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        BorderThickness="0"
+                        Cursor="Hand"/>
+
+                <!-- Блок с текстом и ссылкой для регистрации -->
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0 15 0 0">
+                    <TextBlock Text="Нет аккаунта? "
+                               FontSize="14"/>
+                    <Button x:Name="RegisterButton"
+                            Content="Регистрация"
+                            Style="{StaticResource LinkButtonStyle}"
+                            FontSize="14"
+                            Foreground="#2A3F54"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Padding="0 0 0 0"/>
+                </StackPanel>
+
+                <TextBlock x:Name="ErrorMessage"
+                           Foreground="Red"
+                           Margin="0 15 0 0"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed"/>
+
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
