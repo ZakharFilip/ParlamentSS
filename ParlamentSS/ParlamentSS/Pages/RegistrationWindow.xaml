@@ -11,6 +11,70 @@
         ResizeMode="NoResize">
 
     <Window.Resources>
+        <!-- Стиль для TextBox с плейсхолдером -->
+        <Style x:Key="PlaceholderTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5"/>
+                            <TextBlock x:Name="placeholderText" 
+                                      Text="{TemplateBinding Tag}"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      Visibility="Collapsed"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для PasswordBox с плейсхолдером -->
+        <Style x:Key="PlaceholderPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5"/>
+                            <TextBlock x:Name="placeholderText" 
+                                      Text="{TemplateBinding Tag}"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      Visibility="Visible"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password.Length}" Value="0">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password.Length}" Value="1">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для кнопки-ссылки -->
         <Style x:Key="LinkButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="#2A3F54"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -71,46 +135,50 @@
 
                     <!-- Поля для ввода данных -->
                     <TextBox x:Name="FirstNameTextBox"
-                            
+                             Style="{StaticResource PlaceholderTextBoxStyle}"
+                             Tag="Имя"
                              Margin="0 0 0 10"
                              Height="35"
                              FontSize="14"
-                             Padding="10"/>
+                             Padding="5"/>
 
                     <TextBox x:Name="LastNameTextBox"
-                            
+                             Style="{StaticResource PlaceholderTextBoxStyle}"
+                             Tag="Фамилия"
                              Margin="0 0 0 10"
                              Height="35"
                              FontSize="14"
-                             Padding="10"/>
+                             Padding="5"/>
 
                     <TextBox x:Name="EmailTextBox"
-                             
+                             Style="{StaticResource PlaceholderTextBoxStyle}"
+                             Tag="Электронная почта"
                              Margin="0 0 0 10"
                              Height="35"
                              FontSize="14"
-                             Padding="10"/>
+                             Padding="5"/>
 
                     <TextBox x:Name="UsernameTextBox"
-                             
+                             Style="{StaticResource PlaceholderTextBoxStyle}"
+                             Tag="Никнейм"
                              Margin="0 0 0 10"
                              Height="35"
                              FontSize="14"
-                             Padding="10"/>
+                             Padding="5"/>
 
                     <PasswordBox x:Name="PasswordBox"
-                                
+                                 Style="{StaticResource PlaceholderPasswordBoxStyle}"
+                                 Tag="Пароль"
                                  Margin="0 0 0 10"
                                  Height="35"
-                                 FontSize="14"
-                                 Padding="10"/>
+                                 FontSize="14"/>
 
                     <PasswordBox x:Name="ConfirmPasswordBox"
-                                 
+                                 Style="{StaticResource PlaceholderPasswordBoxStyle}"
+                                 Tag="Повторите пароль"
                                  Margin="0 0 0 20"
                                  Height="35"
-                                 FontSize="14"
-                                 Padding="10"/>
+                                 FontSize="14"/>
 
                     <Button x:Name="RegisterButton"
                             Content="Зарегистрироваться"

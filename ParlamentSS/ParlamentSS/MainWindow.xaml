@@ -5,11 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParlamentSS"
         mc:Ignorable="d"
-        Title="Авторизация - Парламентская система" 
+         Title="Авторизация - Парламентская система" 
         Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+
     <Window.Resources>
+        <!-- Стиль для TextBox с плейсхолдером -->
+        <Style x:Key="PlaceholderTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5"/>
+                            <TextBlock x:Name="placeholderText" 
+                                      Text="{TemplateBinding Tag}"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      Visibility="Collapsed"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для PasswordBox с плейсхолдером -->
+        <Style x:Key="PlaceholderPasswordBoxStyle" TargetType="PasswordBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5"/>
+                            <TextBlock x:Name="placeholderText" 
+                                      Text="{TemplateBinding Tag}"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      Foreground="Gray"
+                                      Visibility="Visible"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password.Length}" Value="0">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Password.Length}" Value="1">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="placeholderText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для кнопки-ссылки -->
         <Style x:Key="LinkButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="#2A3F54"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -19,8 +84,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <TextBlock Text="{TemplateBinding Content}" 
-                               TextDecorations="Underline"
-                               Foreground="{TemplateBinding Foreground}"/>
+                                   TextDecorations="Underline"
+                                   Foreground="{TemplateBinding Foreground}"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -31,6 +96,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+
     <Grid>
         <!-- Основной контейнер -->
         <Grid Background="#F5F5F5">
@@ -67,18 +133,19 @@
                            HorizontalAlignment="Center"/>
 
                 <TextBox x:Name="UsernameTextBox"
-                         
+                         Style="{StaticResource PlaceholderTextBoxStyle}"
+                         Tag="Логин"
                          Margin="0 0 0 15"
                          Height="40"
                          FontSize="16"
-                         Padding="10"/>
+                         Padding="5"/>
 
                 <PasswordBox x:Name="PasswordBox"
-                            
+                             Style="{StaticResource PlaceholderPasswordBoxStyle}"
+                             Tag="Пароль"
                              Margin="0 0 0 25"
                              Height="40"
-                             FontSize="16"
-                             Padding="10"/>
+                             FontSize="16"/>
 
                 <Button x:Name="LoginButton"
                         Content="Войти"
@@ -88,7 +155,8 @@
                         FontSize="16"
                         FontWeight="Bold"
                         BorderThickness="0"
-                        Cursor="Hand"/>
+                        Cursor="Hand"
+                        Click="LoginButton_Click"/>
 
                 <!-- Блок с текстом и ссылкой для регистрации -->
                 <StackPanel Orientation="Horizontal" 
@@ -96,15 +164,13 @@
                             Margin="0 15 0 0">
                     <TextBlock Text="Нет аккаунта? "
                                FontSize="14"/>
-                    <Button x:Name="RegisterButton"
+                    <Button x:Name="RegisterLinkButton"
                             Content="Регистрация"
                             Style="{StaticResource LinkButtonStyle}"
                             FontSize="14"
                             Foreground="#2A3F54"
-                            Background="Transparent"
-                            BorderThickness="0"
                             Cursor="Hand"
-                            Padding="0 0 0 0"/>
+                            Click="RegisterLinkButton_Click"/>
                 </StackPanel>
 
                 <TextBlock x:Name="ErrorMessage"
