@@ -46,8 +46,8 @@ namespace ParlamentSS
                 ErrorMessage.Visibility = Visibility.Collapsed;
 
                 // Переход к главному окну после успешной авторизации
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                ViewMainWindow ToMainWindow = new ViewMainWindow();
+                ToMainWindow.Show();
                 this.Close();
             }
             else
