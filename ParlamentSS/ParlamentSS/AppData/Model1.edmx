@@ -1,0 +1,665 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ParlamentSSModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="parliament_compositions">
+          <Key>
+            <PropertyRef Name="id_composition" />
+          </Key>
+          <Property Name="id_composition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" />
+          <Property Name="id_council_chair" Type="int" />
+          <Property Name="id_chair_corps1" Type="int" />
+          <Property Name="id_chair_corps2" Type="int" />
+          <Property Name="id_chair_corps3" Type="int" />
+          <Property Name="id_chair_corps4" Type="int" />
+          <Property Name="id_chair_corps5" Type="int" />
+          <Property Name="id_chair_corps6" Type="int" />
+        </EntityType>
+        <EntityType Name="parties">
+          <Key>
+            <PropertyRef Name="id_party" />
+          </Key>
+          <Property Name="id_party" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="program" Type="nvarchar(max)" />
+          <Property Name="info" Type="nvarchar(max)" />
+          <Property Name="foundation_date" Type="date" />
+          <Property Name="logo" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="parties_in_parliament">
+          <Key>
+            <PropertyRef Name="id_record" />
+          </Key>
+          <Property Name="id_record" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_composition" Type="int" Nullable="false" />
+          <Property Name="id_party" Type="int" Nullable="false" />
+          <Property Name="seats_count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="party_members">
+          <Key>
+            <PropertyRef Name="id_member" />
+          </Key>
+          <Property Name="id_member" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_party" Type="int" Nullable="false" />
+          <Property Name="position" Type="nvarchar" MaxLength="100" />
+          <Property Name="join_date" Type="date" Nullable="false" />
+          <Property Name="leave_date" Type="date" />
+          <Property Name="status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="seats_list">
+          <Key>
+            <PropertyRef Name="id_record" />
+          </Key>
+          <Property Name="id_record" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_composition" Type="int" Nullable="false" />
+          <Property Name="id_member" Type="int" Nullable="false" />
+          <Property Name="seat_type" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nickname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_role" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_composition_list">
+          <End Role="parliament_compositions" Type="Self.parliament_compositions" Multiplicity="1" />
+          <End Role="seats_list" Type="Self.seats_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parliament_compositions">
+              <PropertyRef Name="id_composition" />
+            </Principal>
+            <Dependent Role="seats_list">
+              <PropertyRef Name="id_composition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_member_list">
+          <End Role="party_members" Type="Self.party_members" Multiplicity="1" />
+          <End Role="seats_list" Type="Self.seats_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="party_members">
+              <PropertyRef Name="id_member" />
+            </Principal>
+            <Dependent Role="seats_list">
+              <PropertyRef Name="id_member" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_member_party">
+          <End Role="parties" Type="Self.parties" Multiplicity="1" />
+          <End Role="party_members" Type="Self.party_members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parties">
+              <PropertyRef Name="id_party" />
+            </Principal>
+            <Dependent Role="party_members">
+              <PropertyRef Name="id_party" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_member_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="party_members" Type="Self.party_members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="party_members">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_parties_in_parliament_parliament_compositions">
+          <End Role="parliament_compositions" Type="Self.parliament_compositions" Multiplicity="1" />
+          <End Role="parties_in_parliament" Type="Self.parties_in_parliament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parliament_compositions">
+              <PropertyRef Name="id_composition" />
+            </Principal>
+            <Dependent Role="parties_in_parliament">
+              <PropertyRef Name="id_composition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_party_in_parliament">
+          <End Role="parties" Type="Self.parties" Multiplicity="1" />
+          <End Role="parties_in_parliament" Type="Self.parties_in_parliament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parties">
+              <PropertyRef Name="id_party" />
+            </Principal>
+            <Dependent Role="parties_in_parliament">
+              <PropertyRef Name="id_party" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_role">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище ParlamentSSModelContainer">
+          <EntitySet Name="parliament_compositions" EntityType="Self.parliament_compositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parties" EntityType="Self.parties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parties_in_parliament" EntityType="Self.parties_in_parliament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="party_members" EntityType="Self.party_members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="seats_list" EntityType="Self.seats_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_composition_list" Association="Self.fk_composition_list">
+            <End Role="parliament_compositions" EntitySet="parliament_compositions" />
+            <End Role="seats_list" EntitySet="seats_list" />
+          </AssociationSet>
+          <AssociationSet Name="fk_member_list" Association="Self.fk_member_list">
+            <End Role="party_members" EntitySet="party_members" />
+            <End Role="seats_list" EntitySet="seats_list" />
+          </AssociationSet>
+          <AssociationSet Name="fk_member_party" Association="Self.fk_member_party">
+            <End Role="parties" EntitySet="parties" />
+            <End Role="party_members" EntitySet="party_members" />
+          </AssociationSet>
+          <AssociationSet Name="fk_member_user" Association="Self.fk_member_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="party_members" EntitySet="party_members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_parties_in_parliament_parliament_compositions" Association="Self.FK_parties_in_parliament_parliament_compositions">
+            <End Role="parliament_compositions" EntitySet="parliament_compositions" />
+            <End Role="parties_in_parliament" EntitySet="parties_in_parliament" />
+          </AssociationSet>
+          <AssociationSet Name="fk_party_in_parliament" Association="Self.fk_party_in_parliament">
+            <End Role="parties" EntitySet="parties" />
+            <End Role="parties_in_parliament" EntitySet="parties_in_parliament" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ParlamentSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="parliament_compositions">
+          <Key>
+            <PropertyRef Name="id_composition" />
+          </Key>
+          <Property Name="id_composition" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="id_council_chair" Type="Int32" />
+          <Property Name="id_chair_corps1" Type="Int32" />
+          <Property Name="id_chair_corps2" Type="Int32" />
+          <Property Name="id_chair_corps3" Type="Int32" />
+          <Property Name="id_chair_corps4" Type="Int32" />
+          <Property Name="id_chair_corps5" Type="Int32" />
+          <Property Name="id_chair_corps6" Type="Int32" />
+          <NavigationProperty Name="seats_list" Relationship="Self.fk_composition_list" FromRole="parliament_compositions" ToRole="seats_list" />
+          <NavigationProperty Name="parties_in_parliament" Relationship="Self.FK_parties_in_parliament_parliament_compositions" FromRole="parliament_compositions" ToRole="parties_in_parliament" />
+        </EntityType>
+        <EntityType Name="parties">
+          <Key>
+            <PropertyRef Name="id_party" />
+          </Key>
+          <Property Name="id_party" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="program" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_date" Type="DateTime" Precision="0" />
+          <Property Name="logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="party_members" Relationship="Self.fk_member_party" FromRole="parties" ToRole="party_members" />
+          <NavigationProperty Name="parties_in_parliament" Relationship="Self.fk_party_in_parliament" FromRole="parties" ToRole="parties_in_parliament" />
+        </EntityType>
+        <EntityType Name="parties_in_parliament">
+          <Key>
+            <PropertyRef Name="id_record" />
+          </Key>
+          <Property Name="id_record" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_composition" Type="Int32" Nullable="false" />
+          <Property Name="id_party" Type="Int32" Nullable="false" />
+          <Property Name="seats_count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="parliament_compositions" Relationship="Self.FK_parties_in_parliament_parliament_compositions" FromRole="parties_in_parliament" ToRole="parliament_compositions" />
+          <NavigationProperty Name="parties" Relationship="Self.fk_party_in_parliament" FromRole="parties_in_parliament" ToRole="parties" />
+        </EntityType>
+        <EntityType Name="party_members">
+          <Key>
+            <PropertyRef Name="id_member" />
+          </Key>
+          <Property Name="id_member" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="id_party" Type="Int32" Nullable="false" />
+          <Property Name="position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="join_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="leave_date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="parties" Relationship="Self.fk_member_party" FromRole="party_members" ToRole="parties" />
+          <NavigationProperty Name="seats_list" Relationship="Self.fk_member_list" FromRole="party_members" ToRole="seats_list" />
+          <NavigationProperty Name="users" Relationship="Self.fk_member_user" FromRole="party_members" ToRole="users" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.fk_user_role" FromRole="roles" ToRole="users" />
+        </EntityType>
+        <EntityType Name="seats_list">
+          <Key>
+            <PropertyRef Name="id_record" />
+          </Key>
+          <Property Name="id_record" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_composition" Type="Int32" Nullable="false" />
+          <Property Name="id_member" Type="Int32" Nullable="false" />
+          <Property Name="seat_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="parliament_compositions" Relationship="Self.fk_composition_list" FromRole="seats_list" ToRole="parliament_compositions" />
+          <NavigationProperty Name="party_members" Relationship="Self.fk_member_list" FromRole="seats_list" ToRole="party_members" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nickname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="party_members" Relationship="Self.fk_member_user" FromRole="users" ToRole="party_members" />
+          <NavigationProperty Name="roles" Relationship="Self.fk_user_role" FromRole="users" ToRole="roles" />
+        </EntityType>
+        <Association Name="fk_composition_list">
+          <End Role="parliament_compositions" Type="Self.parliament_compositions" Multiplicity="1" />
+          <End Role="seats_list" Type="Self.seats_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parliament_compositions">
+              <PropertyRef Name="id_composition" />
+            </Principal>
+            <Dependent Role="seats_list">
+              <PropertyRef Name="id_composition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_parties_in_parliament_parliament_compositions">
+          <End Role="parliament_compositions" Type="Self.parliament_compositions" Multiplicity="1" />
+          <End Role="parties_in_parliament" Type="Self.parties_in_parliament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parliament_compositions">
+              <PropertyRef Name="id_composition" />
+            </Principal>
+            <Dependent Role="parties_in_parliament">
+              <PropertyRef Name="id_composition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_member_party">
+          <End Role="parties" Type="Self.parties" Multiplicity="1" />
+          <End Role="party_members" Type="Self.party_members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parties">
+              <PropertyRef Name="id_party" />
+            </Principal>
+            <Dependent Role="party_members">
+              <PropertyRef Name="id_party" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_party_in_parliament">
+          <End Role="parties" Type="Self.parties" Multiplicity="1" />
+          <End Role="parties_in_parliament" Type="Self.parties_in_parliament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parties">
+              <PropertyRef Name="id_party" />
+            </Principal>
+            <Dependent Role="parties_in_parliament">
+              <PropertyRef Name="id_party" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_member_list">
+          <End Role="party_members" Type="Self.party_members" Multiplicity="1" />
+          <End Role="seats_list" Type="Self.seats_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="party_members">
+              <PropertyRef Name="id_member" />
+            </Principal>
+            <Dependent Role="seats_list">
+              <PropertyRef Name="id_member" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_member_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="party_members" Type="Self.party_members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="party_members">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_role">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="id_role" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="parliament_compositions" EntityType="Self.parliament_compositions" />
+          <EntitySet Name="parties" EntityType="Self.parties" />
+          <EntitySet Name="parties_in_parliament" EntityType="Self.parties_in_parliament" />
+          <EntitySet Name="party_members" EntityType="Self.party_members" />
+          <EntitySet Name="roles" EntityType="Self.roles" />
+          <EntitySet Name="seats_list" EntityType="Self.seats_list" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="fk_composition_list" Association="Self.fk_composition_list">
+            <End Role="parliament_compositions" EntitySet="parliament_compositions" />
+            <End Role="seats_list" EntitySet="seats_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_parties_in_parliament_parliament_compositions" Association="Self.FK_parties_in_parliament_parliament_compositions">
+            <End Role="parliament_compositions" EntitySet="parliament_compositions" />
+            <End Role="parties_in_parliament" EntitySet="parties_in_parliament" />
+          </AssociationSet>
+          <AssociationSet Name="fk_member_party" Association="Self.fk_member_party">
+            <End Role="parties" EntitySet="parties" />
+            <End Role="party_members" EntitySet="party_members" />
+          </AssociationSet>
+          <AssociationSet Name="fk_party_in_parliament" Association="Self.fk_party_in_parliament">
+            <End Role="parties" EntitySet="parties" />
+            <End Role="parties_in_parliament" EntitySet="parties_in_parliament" />
+          </AssociationSet>
+          <AssociationSet Name="fk_member_list" Association="Self.fk_member_list">
+            <End Role="party_members" EntitySet="party_members" />
+            <End Role="seats_list" EntitySet="seats_list" />
+          </AssociationSet>
+          <AssociationSet Name="fk_member_user" Association="Self.fk_member_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="party_members" EntitySet="party_members" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_role" Association="Self.fk_user_role">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ParlamentSSModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ParlamentSSModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ParlamentSSModelContainer" CdmEntityContainer="Entities1">
+          <EntitySetMapping Name="parliament_compositions">
+            <EntityTypeMapping TypeName="ParlamentSSModel.parliament_compositions">
+              <MappingFragment StoreEntitySet="parliament_compositions">
+                <ScalarProperty Name="id_composition" ColumnName="id_composition" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="id_council_chair" ColumnName="id_council_chair" />
+                <ScalarProperty Name="id_chair_corps1" ColumnName="id_chair_corps1" />
+                <ScalarProperty Name="id_chair_corps2" ColumnName="id_chair_corps2" />
+                <ScalarProperty Name="id_chair_corps3" ColumnName="id_chair_corps3" />
+                <ScalarProperty Name="id_chair_corps4" ColumnName="id_chair_corps4" />
+                <ScalarProperty Name="id_chair_corps5" ColumnName="id_chair_corps5" />
+                <ScalarProperty Name="id_chair_corps6" ColumnName="id_chair_corps6" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parties">
+            <EntityTypeMapping TypeName="ParlamentSSModel.parties">
+              <MappingFragment StoreEntitySet="parties">
+                <ScalarProperty Name="id_party" ColumnName="id_party" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="program" ColumnName="program" />
+                <ScalarProperty Name="info" ColumnName="info" />
+                <ScalarProperty Name="foundation_date" ColumnName="foundation_date" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="parties_in_parliament">
+            <EntityTypeMapping TypeName="ParlamentSSModel.parties_in_parliament">
+              <MappingFragment StoreEntitySet="parties_in_parliament">
+                <ScalarProperty Name="id_record" ColumnName="id_record" />
+                <ScalarProperty Name="id_composition" ColumnName="id_composition" />
+                <ScalarProperty Name="id_party" ColumnName="id_party" />
+                <ScalarProperty Name="seats_count" ColumnName="seats_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="party_members">
+            <EntityTypeMapping TypeName="ParlamentSSModel.party_members">
+              <MappingFragment StoreEntitySet="party_members">
+                <ScalarProperty Name="id_member" ColumnName="id_member" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id_party" ColumnName="id_party" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="join_date" ColumnName="join_date" />
+                <ScalarProperty Name="leave_date" ColumnName="leave_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="ParlamentSSModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seats_list">
+            <EntityTypeMapping TypeName="ParlamentSSModel.seats_list">
+              <MappingFragment StoreEntitySet="seats_list">
+                <ScalarProperty Name="id_record" ColumnName="id_record" />
+                <ScalarProperty Name="id_composition" ColumnName="id_composition" />
+                <ScalarProperty Name="id_member" ColumnName="id_member" />
+                <ScalarProperty Name="seat_type" ColumnName="seat_type" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ParlamentSSModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="ParlamentSSModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище ParlamentSSModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище ParlamentSSModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище ParlamentSSModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище ParlamentSSModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ParlamentSSModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище ParlamentSSModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ParlamentSSModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище ParlamentSSModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище ParlamentSSModel.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

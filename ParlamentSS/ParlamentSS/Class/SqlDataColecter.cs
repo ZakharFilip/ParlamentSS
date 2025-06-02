@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParlamentSS.AppData
+namespace ParlamentSS.Class
 {
-    internal class AppConnect
+    internal class SqlDataColecter
     {
-        public static Entities1 Model1;
+
+
     }
 }

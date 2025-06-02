@@ -33,12 +33,30 @@ namespace ParlamentSS
 
         private void NavigateToProfilePage(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Uri("Pages/HomePage.xaml", UriKind.Relative)); //ИЗМЕНИТЬ АДРЕСС
+            MainFrame.Navigate(new Uri("Pages/ProfilePage.xaml", UriKind.Relative)); //ИЗМЕНИТЬ АДРЕСС
         }
 
         private void NavigateToSettingsPage(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Uri("Pages/HomePage.xaml", UriKind.Relative));//ИЗМЕНИТТЬ АДРЕСС
+            MainFrame.Navigate(new Uri("Pages/SettingsPage.xaml", UriKind.Relative));//ИЗМЕНИТТЬ АДРЕСС
         }
+
+        private void NavigateToParty(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Uri("Pages/PartyPage.xaml", UriKind.Relative));
+        }
+        private void NavigateToPartyMembers(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Uri("Pages/PartyMembersPage.xaml", UriKind.Relative));
+        }
+        private void NavigateToParlament(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Uri("Pages/ParlamentPage.xaml", UriKind.Relative));
+        }
+
+
+
+
+
     }
 }

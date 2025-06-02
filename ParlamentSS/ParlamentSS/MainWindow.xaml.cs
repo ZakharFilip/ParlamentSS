@@ -1,4 +1,5 @@
-﻿using ParlamentSS.Pages;
+﻿using ParlamentSS.AppData;
+using ParlamentSS.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,15 @@ using System.Windows.Shapes;
 
 namespace ParlamentSS
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
-        // Обработчик кнопки входа
+
+        //кнопки входа
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             // Валидация полей
@@ -36,25 +36,50 @@ namespace ParlamentSS
                 ErrorMessage.Visibility = Visibility.Visible;
                 return;
             }
-
-            // Здесь должна быть проверка логина/пароля
-            // Например, проверка с базой данных или сервисом аутентификации
-
-            // Временная заглушка для демонстрации
-            if (UsernameTextBox.Text == "admin" && PasswordBox.Password == "admin")
+            /**/
+            try
             {
-                ErrorMessage.Visibility = Visibility.Collapsed;
+                var userObj = AppConnect.Model1.users.FirstOrDefault(x => x.email == UsernameTextBox.Text && x.password == PasswordBox.Password);
+                if (userObj == null)
+                {
+                    labelError.Content = "Неверная почта или пароль";
+                }
+                else
+                {
+                    switch (userObj.id_role)
+                    {
+                        case 1:
+                            ToMainVindowPerehod();
+                            break;
 
-                // Переход к главному окну после успешной авторизации
-                ViewMainWindow ToMainWindow = new ViewMainWindow();
-                ToMainWindow.Show();
-                this.Close();
+                        case 2:
+                            ToMainVindowPerehod();
+                            break;
+                        case 3:
+                            ToMainVindowPerehod();
+                            break;
+                        case 4:
+                            ToMainVindowPerehod();
+                            break;
+
+                        default: MessageBox.Show("ERROR", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning); break;
+                    }
+                }
             }
-            else
+            
+            catch (Exception Ex)
             {
-                ErrorMessage.Text = "Неверный логин или пароль";
-                ErrorMessage.Visibility = Visibility.Visible;
+                MessageBox.Show("Ошибка " + Ex.Message.ToString() + "Критическая работа приложения!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+           
+        }
+
+        private void ToMainVindowPerehod()
+        {
+            // Переход к главному окну после успешной авторизации
+            ViewMainWindow ToMainWindow = new ViewMainWindow();
+            ToMainWindow.Show();
+            this.Close();
         }
 
         // Обработчик кнопки регистрации
@@ -69,6 +94,11 @@ namespace ParlamentSS
             var authWindow = new RegistrationWindow();
             authWindow.Show();
             this.Close();
+
+        }
+
+        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
     }
