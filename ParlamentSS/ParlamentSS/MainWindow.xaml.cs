@@ -23,6 +23,7 @@ namespace ParlamentSS
         public MainWindow()
         {
             InitializeComponent();
+            AppConnect.Model1 = new Entities1();
         }
 
         //кнопки входа
@@ -37,6 +38,13 @@ namespace ParlamentSS
                 return;
             }
             /**/
+            if (AppConnect.Model1 == null)
+            {
+                MessageBox.Show("Ошибка: Контекст БД не создан!");
+                return;
+            }
+
+            
             try
             {
                 var userObj = AppConnect.Model1.users.FirstOrDefault(x => x.email == UsernameTextBox.Text && x.password == PasswordBox.Password);
