@@ -176,10 +176,9 @@
                            Foreground="Red"
                            Margin="0 15 0 0"
                            TextWrapping="Wrap"
-                           Visibility="Collapsed"/>
+                           Visibility="Visible" Cursor=""/>
 
             </StackPanel>
-            <Label x:Name="labelError" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="50,243,0,0" VerticalAlignment="Top" Foreground="Red"/>
         </Grid>
     </Grid>
 </Window>

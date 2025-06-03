@@ -1,8 +1,8 @@
 ﻿using ParlamentSS.AppData;
 using ParlamentSS.Pages;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,7 +23,7 @@ namespace ParlamentSS
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.Model1 = new Entities1();
+            AppConnect.Model1 = new Entities1(); 
         }
 
         //кнопки входа
@@ -50,7 +50,7 @@ namespace ParlamentSS
                 var userObj = AppConnect.Model1.users.FirstOrDefault(x => x.email == UsernameTextBox.Text && x.password == PasswordBox.Password);
                 if (userObj == null)
                 {
-                    labelError.Content = "Неверная почта или пароль";
+                    ErrorMessage.Text = "Неверная почта или пароль";
                 }
                 else
                 {
