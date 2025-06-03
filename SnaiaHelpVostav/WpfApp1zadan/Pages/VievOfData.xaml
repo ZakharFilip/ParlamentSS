@@ -1,0 +1,56 @@
+﻿<Page x:Class="WpfApp1zadan.Pages.VievOfData"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1zadan.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="VievOfData">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="listVievMain" HorizontalAlignment="Left" Height="352" Margin="40,34,0,0"  VerticalAlignment="Top" Width="760" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Row="1" Grid.RowSpan="2" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding ImagePath}" Grid.Column="0" Width="100" Height="100"/>
+
+                        <StackPanel Grid.Column="1" Width="400" Orientation="Vertical" HorizontalAlignment="Left">
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                            <Run Text="Рецепт: "/>
+                            <Run Text="{Binding recipeName}"/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                            <Run Text="Описание: "/>
+                            <Run Text="{Binding deskription}"/>
+                            </TextBlock>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                            <Run Text="Время приготовления: "/>
+                            <Run Text="{Binding cookingTime}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock HorizontalAlignment="Left" Margin="167,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="429"/>
+        <TextBox x:Name="textBoxSearch" HorizontalAlignment="Left" Height="17" Margin="29,9,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Найти" VerticalAlignment="Top" Width="391"/>
+        <Button x:Name="buttonSearch" Content="Найти" HorizontalAlignment="Left" Height="19" Margin="437,9,0,0" Grid.Row="1" VerticalAlignment="Top" Width="56" Click="buttonSearch_Click"/>
+
+    </Grid>
+</Page>
