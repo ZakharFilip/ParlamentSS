@@ -1,0 +1,379 @@
+USE [master]
+GO
+/****** Object:  Database [ParlamentSS]    Script Date: 30.05.2025 11:29:26 ******/
+CREATE DATABASE [ParlamentSS]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'ParlamentSS', FILENAME = N'C:\Users\10220468\ParlamentSS.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'ParlamentSS_log', FILENAME = N'C:\Users\10220468\ParlamentSS_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [ParlamentSS] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [ParlamentSS].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [ParlamentSS] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [ParlamentSS] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [ParlamentSS] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [ParlamentSS] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [ParlamentSS] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [ParlamentSS] SET  MULTI_USER 
+GO
+ALTER DATABASE [ParlamentSS] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [ParlamentSS] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [ParlamentSS] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [ParlamentSS] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [ParlamentSS] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [ParlamentSS] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [ParlamentSS] SET QUERY_STORE = OFF
+GO
+USE [ParlamentSS]
+GO
+/****** Object:  Table [dbo].[parliament_compositions]    Script Date: 30.05.2025 11:29:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[parliament_compositions](
+	[id_composition] [int] IDENTITY(1,1) NOT NULL,
+	[start_date] [date] NOT NULL,
+	[end_date] [date] NULL,
+	[id_council_chair] [int] NULL,
+	[id_chair_corps1] [int] NULL,
+	[id_chair_corps2] [int] NULL,
+	[id_chair_corps3] [int] NULL,
+	[id_chair_corps4] [int] NULL,
+	[id_chair_corps5] [int] NULL,
+	[id_chair_corps6] [int] NULL,
+ CONSTRAINT [PK__parliame__8844AC090C7ACA8F] PRIMARY KEY CLUSTERED 
+(
+	[id_composition] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[parties]    Script Date: 30.05.2025 11:29:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[parties](
+	[id_party] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](100) NOT NULL,
+	[program] [nvarchar](max) NULL,
+	[info] [nvarchar](max) NULL,
+	[foundation_date] [date] NULL,
+	[logo] [varbinary](max) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_party] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[parties_in_parliament]    Script Date: 30.05.2025 11:29:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[parties_in_parliament](
+	[id_record] [int] IDENTITY(1,1) NOT NULL,
+	[id_composition] [int] NOT NULL,
+	[id_party] [int] NOT NULL,
+	[seats_count] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_record] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[party_members]    Script Date: 30.05.2025 11:29:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[party_members](
+	[id_member] [int] IDENTITY(1,1) NOT NULL,
+	[id_user] [int] NOT NULL,
+	[id_party] [int] NOT NULL,
+	[position] [nvarchar](100) NULL,
+	[join_date] [date] NOT NULL,
+	[leave_date] [date] NULL,
+	[status] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_member] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[roles]    Script Date: 30.05.2025 11:29:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[roles](
+	[id_role] [int] IDENTITY(1,1) NOT NULL,
+	[role_name] [nvarchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_role] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[seats_list]    Script Date: 30.05.2025 11:29:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[seats_list](
+	[id_record] [int] IDENTITY(1,1) NOT NULL,
+	[id_composition] [int] NOT NULL,
+	[id_member] [int] NOT NULL,
+	[seat_type] [nvarchar](50) NOT NULL,
+	[start_date] [date] NOT NULL,
+	[end_date] [date] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_record] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[users]    Script Date: 30.05.2025 11:29:26 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[users](
+	[id_user] [int] IDENTITY(1,1) NOT NULL,
+	[first_name] [nvarchar](50) NOT NULL,
+	[last_name] [nvarchar](50) NOT NULL,
+	[email] [nvarchar](50) NOT NULL,
+	[nickname] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](50) NOT NULL,
+	[id_role] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id_user] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Index [ix_party_members_user]    Script Date: 30.05.2025 11:29:26 ******/
+CREATE NONCLUSTERED INDEX [ix_party_members_user] ON [dbo].[party_members]
+(
+	[id_user] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [ix_seats_list_composition]    Script Date: 30.05.2025 11:29:26 ******/
+CREATE NONCLUSTERED INDEX [ix_seats_list_composition] ON [dbo].[seats_list]
+(
+	[id_composition] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [ix_users_email]    Script Date: 30.05.2025 11:29:26 ******/
+CREATE NONCLUSTERED INDEX [ix_users_email] ON [dbo].[users]
+(
+	[email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[party_members] ADD  DEFAULT ('active') FOR [status]
+GO
+ALTER TABLE [dbo].[parties_in_parliament]  WITH CHECK ADD  CONSTRAINT [FK_parties_in_parliament_parliament_compositions] FOREIGN KEY([id_composition])
+REFERENCES [dbo].[parliament_compositions] ([id_composition])
+GO
+ALTER TABLE [dbo].[parties_in_parliament] CHECK CONSTRAINT [FK_parties_in_parliament_parliament_compositions]
+GO
+ALTER TABLE [dbo].[parties_in_parliament]  WITH CHECK ADD  CONSTRAINT [fk_party_in_parliament] FOREIGN KEY([id_party])
+REFERENCES [dbo].[parties] ([id_party])
+GO
+ALTER TABLE [dbo].[parties_in_parliament] CHECK CONSTRAINT [fk_party_in_parliament]
+GO
+ALTER TABLE [dbo].[party_members]  WITH CHECK ADD  CONSTRAINT [fk_member_party] FOREIGN KEY([id_party])
+REFERENCES [dbo].[parties] ([id_party])
+GO
+ALTER TABLE [dbo].[party_members] CHECK CONSTRAINT [fk_member_party]
+GO
+ALTER TABLE [dbo].[party_members]  WITH CHECK ADD  CONSTRAINT [fk_member_user] FOREIGN KEY([id_user])
+REFERENCES [dbo].[users] ([id_user])
+GO
+ALTER TABLE [dbo].[party_members] CHECK CONSTRAINT [fk_member_user]
+GO
+ALTER TABLE [dbo].[seats_list]  WITH CHECK ADD  CONSTRAINT [fk_composition_list] FOREIGN KEY([id_composition])
+REFERENCES [dbo].[parliament_compositions] ([id_composition])
+GO
+ALTER TABLE [dbo].[seats_list] CHECK CONSTRAINT [fk_composition_list]
+GO
+ALTER TABLE [dbo].[seats_list]  WITH CHECK ADD  CONSTRAINT [fk_member_list] FOREIGN KEY([id_member])
+REFERENCES [dbo].[party_members] ([id_member])
+GO
+ALTER TABLE [dbo].[seats_list] CHECK CONSTRAINT [fk_member_list]
+GO
+ALTER TABLE [dbo].[users]  WITH CHECK ADD  CONSTRAINT [fk_user_role] FOREIGN KEY([id_role])
+REFERENCES [dbo].[roles] ([id_role])
+GO
+ALTER TABLE [dbo].[users] CHECK CONSTRAINT [fk_user_role]
+GO
+USE [master]
+GO
+ALTER DATABASE [ParlamentSS] SET  READ_WRITE 
+GO
+
+
+
+
+
+
+
+
+-- Настройки кодировки для корректного отображения кириллицы
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET NOCOUNT ON
+GO
+
+-- 1. Очистка таблиц (если нужно выполнять повторно)
+/*
+DELETE FROM [seats_list];
+DELETE FROM [parties_in_parliament];
+DELETE FROM [parliament_compositions];
+DELETE FROM [party_members];
+DELETE FROM [users];
+DELETE FROM [parties];
+DELETE FROM [roles];
+*/
+
+-- 2. Заполнение таблицы ролей с N-префиксом
+INSERT INTO [dbo].[roles] ([role_name])
+VALUES 
+(N'Главный Админ'),
+(N'Администратор'),
+(N'Пользователь'),
+(N'Партиец');
+GO
+
+-- 3. Заполнение пользователей с русскими именами
+INSERT INTO [dbo].[users] ([first_name], [last_name], [email], [nickname], [password], [id_role])
+VALUES
+(N'Иван', N'Петров', N'ivan@univ.edu', N'ivan_petrov', N'pass123', 1),
+(N'Елена', N'Сидорова', N'elena@univ.edu', N'elena_sid', N'pass456', 2),
+(N'Алексей', N'Смирнов', N'alex@univ.edu', N'alex_smir', N'pass789', 3),
+(N'Ольга', N'Иванова', N'olga@univ.edu', N'olga_iva', N'pass012', 4),
+(N'Дмитрий', N'Козлов', N'dima@univ.edu', N'dima_koz', N'pass345', 4);
+GO
+
+-- 4. Заполнение таблицы партий
+INSERT INTO [dbo].[parties] ([name], [program], [info], [foundation_date])
+VALUES
+(N'Учебный Совет', N'Повышение качества образования', N'За улучшение учебных программ', '2020-09-01'),
+(N'Студенческий Актив', N'Развитие внеучебной деятельности', N'Организация мероприятий и праздников', '2021-01-15'),
+(N'Спортивная Лига', N'Развитие спорта в университете', N'За здоровый образ жизни', '2019-11-20'),
+(N'Творческий Альянс', N'Поддержка творческих инициатив', N'Развитие студенческого творчества', '2020-03-10');
+GO
+
+-- 5. Заполнение членов партий
+INSERT INTO [dbo].[party_members] ([id_user], [id_party], [position], [join_date], [leave_date], [status])
+VALUES
+(4, 1, N'Лидер партии', '2023-01-10', NULL, N'Активен'),
+(5, 2, N'Координатор', '2023-02-15', NULL, N'Активен'),
+(4, 3, N'Капитан', '2022-11-01', '2023-05-20', N'Неактивен'),
+(5, 4, N'Организатор', '2023-03-01', NULL, N'Активен');
+GO
+
+-- 6. Заполнение составов парламента
+INSERT INTO [dbo].[parliament_compositions] 
+([start_date], [end_date], [id_council_chair], [id_chair_corps1], [id_chair_corps2])
+VALUES
+('2023-09-01', NULL, 1, 2, NULL),
+('2022-09-01', '2023-08-31', 2, 1, 3);
+GO
+
+-- 7. Заполнение партий в парламенте
+INSERT INTO [dbo].[parties_in_parliament] ([id_composition], [id_party], [seats_count])
+VALUES
+(1, 1, 10),
+(1, 2, 8),
+(1, 3, 5),
+(1, 4, 7),
+(2, 1, 9),
+(2, 2, 7),
+(2, 3, 6),
+(2, 4, 8);
+GO
+
+-- 8. Заполнение распределения мест
+INSERT INTO [dbo].[seats_list] ([id_composition], [id_member], [seat_type], [start_date], [end_date])
+VALUES
+(1, 1, N'Председатель', '2023-09-01', NULL),
+(1, 2, N'Заместитель', '2023-09-01', NULL),
+(2, 3, N'Член комиссии', '2022-09-01', '2023-08-31'),
+(2, 4, N'Секретарь', '2022-09-01', '2023-08-31');
+GO
+
+-- Проверочный запрос для отображения данных
+SELECT 
+    u.id_user,
+    u.first_name + ' ' + u.last_name AS full_name,
+    r.role_name,
+    p.name AS party_name,
+    pm.position AS party_position,
+    pc.start_date AS parliament_period,
+    sl.seat_type
+FROM users u
+JOIN roles r ON u.id_role = r.id_role
+LEFT JOIN party_members pm ON u.id_user = pm.id_user
+LEFT JOIN parties p ON pm.id_party = p.id_party
+LEFT JOIN seats_list sl ON pm.id_member = sl.id_member
+LEFT JOIN parliament_compositions pc ON sl.id_composition = pc.id_composition
+ORDER BY u.last_name;
