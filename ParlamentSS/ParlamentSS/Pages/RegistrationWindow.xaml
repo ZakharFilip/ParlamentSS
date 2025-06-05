@@ -188,7 +188,7 @@
                             FontSize="16"
                             FontWeight="Bold"
                             BorderThickness="0"
-                            Cursor="Hand"/>
+                            Cursor="Hand" Click="RegisterButton_Click_1"/>
 
                     <!-- Ссылка для возврата к авторизации -->
                     <StackPanel Orientation="Horizontal" 
@@ -209,7 +209,7 @@
                                Foreground="Red"
                                Margin="0 15 0 0"
                                TextWrapping="Wrap"
-                               Visibility="Collapsed"/>
+                               Visibility="Visible"/>
 
                 </StackPanel>
             </ScrollViewer>

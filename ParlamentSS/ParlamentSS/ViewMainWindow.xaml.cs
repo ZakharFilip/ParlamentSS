@@ -51,7 +51,7 @@ namespace ParlamentSS
         }
         private void NavigateToParlament(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Uri("Pages/ParlamentPage.xaml", UriKind.Relative));
+            MainFrame.Navigate(new Uri("Pages/AddPartyPage.xaml", UriKind.Relative));
         }
 
 

@@ -26,7 +26,7 @@ namespace ParlamentSS.AppData
         public string program { get; set; }
         public string info { get; set; }
         public Nullable<System.DateTime> foundation_date { get; set; }
-        public byte[] logo { get; set; }
+        public string logo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<party_members> party_members { get; set; }

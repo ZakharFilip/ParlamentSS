@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:ParlamentSS"
         mc:Ignorable="d"
         Title="Парламентская система" 
-        Height="600" Width="900"
+        Height="600" Width="1177"
         WindowStartupLocation="CenterScreen">
 
-    <Grid>
+    <Grid Margin="0,0,227,0">
         <!-- Разделение на две части: меню и контент -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -27,25 +27,29 @@
             <Button x:Name="buttonToSettings" Content="Настройки" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToSettingsPage"/>
-            
+
             <Button x:Name="buttonToParty" Content="Партии" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToParty"/>
-            
+
             <Button x:Name="buttonToPartyMembers" Content="Состав партий" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToPartyMembers"/>
-                  
-            
+
+
             <Button x:Name="buttonToParlament" Content="Состав парламента" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToParlament"/>
-            
+            <Button x:Name="buttonToAddParty" Content="Новая партия" 
+                    Style="{StaticResource MenuButtonStyle}"
+                    Click="NavigateToParlament"/>
+
+
         </StackPanel>
 
         <!-- Контейнер для страниц -->
         <Frame x:Name="MainFrame" 
                Grid.Column="1" 
-               NavigationUIVisibility="Hidden"/>
+               NavigationUIVisibility="Hidden" Margin="0,0,-228,0"/>
     </Grid>
 </Window>

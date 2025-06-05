@@ -23,7 +23,7 @@ namespace ParlamentSS
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.Model1 = new Entities1(); 
+            AppConnect.Model1 = new Entities2(); 
         }
 
         //кнопки входа
