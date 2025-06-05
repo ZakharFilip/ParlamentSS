@@ -32,9 +32,6 @@
             <TextBlock Text="Название партии (обязательно):"
                        FontSize="14"
                        Margin="0,0,0,5"/>
-            <TextBlock Text="Дата основания:"
-                       FontSize="14"
-                       Width="182" RenderTransformOrigin="0.504,0.587" Height="21"/>
             <TextBox x:Name="NameTextBox"
                      Height="35"
                      FontSize="14"
@@ -60,7 +57,7 @@
                        FontSize="14"
                        Margin="0,0,0,5"/>
             <TextBox x:Name="InfoTextBox"
-                     Height="100"
+                     Height="53"
                      FontSize="14"
                      Padding="5"
                      Margin="0,0,0,10"
@@ -101,7 +98,7 @@
         </StackPanel>
         <!-- Дата основания -->
         <DatePicker x:Name="FoundationDatePicker"
-                         Margin="508,0,0,243" Grid.Row="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                         Margin="542,0,0,221" Grid.Row="1" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                         >
             <DatePicker.RenderTransform>
                 <TransformGroup>

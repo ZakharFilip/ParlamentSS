@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,9 @@ namespace ParlamentSS.Pages
 
             List<parties> partie =  AppConnect.Model1.parties.ToList();
             PartiesListView.ItemsSource = partie;
+            
         }
-
+        
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
             FindPartie();
@@ -39,18 +41,28 @@ namespace ParlamentSS.Pages
 
         private void PartiesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<parties> products = AppConnect.Model1.parties.ToList();
+            if (PartiesListView.SelectedItem is parties selectedParty)
+            {
+                // Отображаем данные выбранной партии
+                string message = $"Выбрана партия:\n" +
+                                $"Название: {selectedParty.name ?? "Не указано"}\n" +
+                                $"Программа: {selectedParty.program ?? "Не указано"}\n" +
+                                $"Информация: {selectedParty.info ?? "Не указано"}\n" +
+                                $"Дата основания: {selectedParty.foundation_date?.ToString("dd.MM.yyyy") ?? "Не указано"}";
+                MessageBox.Show(message, "Информация о партии", MessageBoxButton.OK, MessageBoxImage.Information);
 
-
-            PartiesListView.ItemsSource = products;
+                // Здесь можно добавить дополнительную логику, например:
+                // - Передача selectedParty на другую страницу
+                // - Обновление UI
+            }
         }
 
         parties[] FindPartie()
         {
-            var parties = AppConnect.Model1.parties.ToList();
-            var productal = parties;
-
-            return parties.ToArray();
+            var partie = AppConnect.Model1.parties.ToList();
+            var productal = partie;
+          
+            return partie.ToArray();
         }
 
         private void textBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
