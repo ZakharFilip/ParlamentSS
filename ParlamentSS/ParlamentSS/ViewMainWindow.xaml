@@ -21,25 +21,6 @@
             <Button x:Name="buttonToHome" Content="Главная" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToHomePage"/>
-            <Button x:Name="buttonToProfile" Content="Профиль" 
-                    Style="{StaticResource MenuButtonStyle}"
-                    Click="NavigateToProfilePage"/>
-            <Button x:Name="buttonToSettings" Content="Настройки" 
-                    Style="{StaticResource MenuButtonStyle}"
-                    Click="NavigateToSettingsPage"/>
-
-            <Button x:Name="buttonToParty" Content="Партии" 
-                    Style="{StaticResource MenuButtonStyle}"
-                    Click="NavigateToParty"/>
-
-            <Button x:Name="buttonToPartyMembers" Content="Состав партий" 
-                    Style="{StaticResource MenuButtonStyle}"
-                    Click="NavigateToPartyMembers"/>
-
-
-            <Button x:Name="buttonToParlament" Content="Состав парламента" 
-                    Style="{StaticResource MenuButtonStyle}"
-                    Click="NavigateToParlament"/>
             <Button x:Name="buttonToAddParty" Content="Новая партия" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToParlament"/>

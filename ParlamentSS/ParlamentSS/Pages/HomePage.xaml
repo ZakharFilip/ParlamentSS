@@ -57,14 +57,7 @@
                                 <Run Text="Название партии: "/>
                                 <Run Text="{Binding name}"/>
                             </TextBlock>
-                            <TextBlock Width="Auto" 
-                                       TextWrapping="Wrap" 
-                                       Height="Auto"
-                                       FontSize="14"
-                                       Margin="0,5,0,0">
-                                <Run Text="Программа: "/>
-                                <Run Text="{Binding program}"/>
-                            </TextBlock>
+                            
                             <TextBlock Width="Auto" 
                                        TextWrapping="Wrap" 
                                        Height="Auto"
@@ -81,11 +74,12 @@
                                     Orientation="Vertical"
                                     Margin="10,0,0,0">
                             <TextBlock Width="Auto" 
-                                       TextWrapping="Wrap" 
-                                       Height="Auto"
-                                       FontSize="14">
-                                <Run Text="Дата основания: "/>
-                                <Run Text="{Binding foundation_date}"/>
+                                 TextWrapping="Wrap" 
+                                 Height="Auto"
+                                 FontSize="14"
+                                Margin="0,5,0,0">
+                                <Run Text="Программа: "/>
+                                <Run Text="{Binding program}"/>
                             </TextBlock>
                         </StackPanel>
                     </Grid>
@@ -94,7 +88,7 @@
         </ListView>
 
         <TextBlock HorizontalAlignment="Left" Margin="167,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="429"/>
-        <TextBox x:Name="textBoxSearch"  HorizontalAlignment="Left" Height="17" Margin="29,9,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Найти" VerticalAlignment="Top" Width="391" TextChanged="textBoxSearch_TextChanged"/>
+        <TextBox x:Name="textBoxSearch"  HorizontalAlignment="Left" Height="17" Margin="29,9,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="391" TextChanged="textBoxSearch_TextChanged"/>
         <Button x:Name="buttonSearch" Content="Найти" HorizontalAlignment="Left" Height="19" Margin="437,9,0,0" Grid.Row="1" VerticalAlignment="Top" Width="56" Click="buttonSearch_Click"/>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
 ﻿using ParlamentSS.AppData;
+using ParlamentSS.Class;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,8 +23,10 @@ namespace ParlamentSS.Pages
     /// <summary>
     /// Логика взаимодействия для HomePage.xaml
     /// </summary>
+    
     public partial class HomePage : Page
     {
+        public ObservableCollection<parties> Parties { get; set; }
         public HomePage()
         {
             InitializeComponent();
@@ -31,43 +34,76 @@ namespace ParlamentSS.Pages
 
             List<parties> partie =  AppConnect.Model1.parties.ToList();
             PartiesListView.ItemsSource = partie;
-            
+
+            Parties = new ObservableCollection<parties>();
+            DataContext = this;
+            LoadParties();
+
         }
         
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
-            FindPartie();
+            UpdatePartiesList();
         }
-
+        
         private void PartiesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (PartiesListView.SelectedItem is parties selectedParty)
             {
-                // Отображаем данные выбранной партии
-                string message = $"Выбрана партия:\n" +
-                                $"Название: {selectedParty.name ?? "Не указано"}\n" +
-                                $"Программа: {selectedParty.program ?? "Не указано"}\n" +
-                                $"Информация: {selectedParty.info ?? "Не указано"}\n" +
-                                $"Дата основания: {selectedParty.foundation_date?.ToString("dd.MM.yyyy") ?? "Не указано"}";
-                MessageBox.Show(message, "Информация о партии", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // Здесь можно добавить дополнительную логику, например:
-                // - Передача selectedParty на другую страницу
-                // - Обновление UI
+                EditPage editPage = new EditPage(selectedParty.id_party, selectedParty.name, selectedParty.program, selectedParty.info, selectedParty.logo);
+                NavigationService?.Navigate(editPage);
             }
-        }
-
-        parties[] FindPartie()
-        {
-            var partie = AppConnect.Model1.parties.ToList();
-            var productal = partie;
-          
-            return partie.ToArray();
         }
 
         private void textBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            UpdatePartiesList();
         }
+
+        private void UpdatePartiesList()
+        {
+            string searchText = textBoxSearch.Text.Trim().ToLower();
+            try
+            {
+                var query = AppConnect.Model1.parties.AsQueryable();
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    query = query.Where(p =>
+                        (p.name != null && p.name.ToLower().Contains(searchText)) ||
+                        (p.program != null && p.program.ToLower().Contains(searchText)) ||
+                        (p.info != null && p.info.ToLower().Contains(searchText)));
+                }
+
+                var filteredParties = query.ToList();
+                Parties.Clear();
+                foreach (var party in filteredParties)
+                {
+                    Parties.Add(party);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void LoadParties()
+        {
+            try
+            {
+                var parties = AppConnect.Model1.parties.ToList();
+                Parties.Clear();
+                foreach (var party in parties)
+                {
+                    Parties.Add(party);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+
+
     }
 }

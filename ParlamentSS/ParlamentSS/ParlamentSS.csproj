@@ -100,10 +100,12 @@
     <Compile Include="AppData\users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class\DataSaver.cs" />
     <Compile Include="Class\SqlDataColecter.cs" />
     <Compile Include="Pages\AddPartyPage.xaml.cs">
       <DependentUpon>AddPartyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EditPage.xaml.cs">
+      <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -141,6 +143,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\AddPartyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
