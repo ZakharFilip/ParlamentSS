@@ -54,7 +54,7 @@
                                        TextWrapping="Wrap" 
                                        Height="Auto"
                                        FontSize="14">
-                                <Run Text="Название партии: "/>
+                                <Run Text="Название клуба: "/>
                                 <Run Text="{Binding name}"/>
                             </TextBlock>
                             

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParlamentSS.Pages"
         mc:Ignorable="d"
-        Title="Регистрация - Парламентская система" 
+        Title="Регистрация - Клубная
+        система" 
         Height="550" Width="900"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
@@ -108,11 +109,11 @@
             <!-- Левая часть - изображение или лого -->
             <Border Grid.Column="0" Background="#2A3F54">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Image Source="\Sourses\Sprites\parliament-logo.png" 
+                    <Image Source="\Sourses\Sprites\LogoLegent.jpg" 
                            Width="150" 
                            Height="150"
                            Margin="0 0 0 20"/>
-                    <TextBlock Text="Парламентская система"
+                    <TextBlock Text="КЛУБЫ ПЕТРО"
                                Foreground="White"
                                FontSize="22"
                                FontWeight="Bold"

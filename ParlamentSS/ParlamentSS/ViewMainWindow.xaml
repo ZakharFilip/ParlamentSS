@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParlamentSS"
         mc:Ignorable="d"
-        Title="Парламентская система" 
+        Title="КЛУБЫ ПЕТРО" 
         Height="600" Width="1177"
         WindowStartupLocation="CenterScreen">
 
@@ -21,7 +21,7 @@
             <Button x:Name="buttonToHome" Content="Главная" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToHomePage"/>
-            <Button x:Name="buttonToAddParty" Content="Новая партия" 
+            <Button x:Name="buttonToAddParty" Content="Новый Клуб" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToParlament"/>
 

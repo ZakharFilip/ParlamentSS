@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
-        <TextBlock Text="Обзор партии"
+        <TextBlock Text="Обзор клуба"
                    FontSize="24"
                    FontWeight="Bold"
                    Margin="20,20,0,20"
