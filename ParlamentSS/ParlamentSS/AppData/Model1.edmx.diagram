@@ -4,14 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d57754998a0e45cc9b75dac9583987dc" Name="Diagram1">
-        <EntityTypeShape EntityType="ParlamentSSModel.parliament_compositions" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParlamentSSModel.parties" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParlamentSSModel.parties_in_parliament" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParlamentSSModel.party_members" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParlamentSSModel.roles" Width="1.5" PointX="1.5" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParlamentSSModel.seats_list" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParlamentSSModel.users" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="40824f0fa67f4d319b9473b4dd1b07bc" Name="Diagram1">
+        <EntityTypeShape EntityType="ParlamentSSModel.club_achievements" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_applications" Width="1.5" PointX="6" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_budgets" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_equipment" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_events" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_partners" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_publications" Width="1.5" PointX="3" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_schedules" Width="1.5" PointX="3" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.club_votings" Width="1.5" PointX="3" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.parliament_compositions" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.parties" Width="1.5" PointX="0.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.parties_in_parliament" Width="1.5" PointX="6" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.party_members" Width="1.5" PointX="6" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.roles" Width="1.5" PointX="1.5" PointY="36.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.seats_list" Width="1.5" PointX="8.25" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParlamentSSModel.users" Width="1.5" PointX="3.75" PointY="35.625" IsExpanded="true" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_achievements_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_applications_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_applications_users" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_budgets_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_equipment_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_events_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_partners_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_publications_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_schedules_parties" ManuallyRouted="false" />
+        <AssociationConnector Association="ParlamentSSModel.FK_club_votings_parties" ManuallyRouted="false" />
         <AssociationConnector Association="ParlamentSSModel.fk_composition_list" ManuallyRouted="false" />
         <AssociationConnector Association="ParlamentSSModel.FK_parties_in_parliament_parliament_compositions" ManuallyRouted="false" />
         <AssociationConnector Association="ParlamentSSModel.fk_member_party" ManuallyRouted="false" />

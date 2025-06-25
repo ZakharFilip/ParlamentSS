@@ -30,7 +30,7 @@ namespace ParlamentSS.Pages
         public HomePage()
         {
             InitializeComponent();
-            AppConnect.Model1 = new Entities2();
+            AppConnect.Model1 = new Entities3();
 
             List<parties> partie =  AppConnect.Model1.parties.ToList();
             PartiesListView.ItemsSource = partie;
@@ -48,7 +48,8 @@ namespace ParlamentSS.Pages
         
         private void PartiesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (PartiesListView.SelectedItem is parties selectedParty)
+
+            if (PartiesListView.SelectedItem is parties selectedParty && AppConnect.currentUser.id_role != 3)
             {
                 EditPage editPage = new EditPage(selectedParty.id_party, selectedParty.name, selectedParty.program, selectedParty.info, selectedParty.logo);
                 NavigationService?.Navigate(editPage);
@@ -84,6 +85,7 @@ namespace ParlamentSS.Pages
             }
             catch (Exception ex)
             {
+
             }
         }
 
@@ -103,7 +105,15 @@ namespace ParlamentSS.Pages
             }
         }
 
+        private void buttonQrCode_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
 
+        private void buttonQrCode_Click_1(object sender, RoutedEventArgs e)
+        {
+            OutDorPage outDorPage = new OutDorPage();
+            NavigationService?.Navigate(outDorPage);
+        }
     }
 }

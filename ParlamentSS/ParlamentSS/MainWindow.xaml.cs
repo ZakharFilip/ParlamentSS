@@ -17,13 +17,16 @@ using System.Windows.Shapes;
 
 namespace ParlamentSS
 {
+    public class Inttercode
+    {
     
+    }
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.Model1 = new Entities2(); 
+            AppConnect.Model1 = new Entities3(); 
         }
 
         //кнопки входа
@@ -48,6 +51,7 @@ namespace ParlamentSS
             try
             {
                 var userObj = AppConnect.Model1.users.FirstOrDefault(x => x.email == UsernameTextBox.Text && x.password == PasswordBox.Password);
+                AppConnect.currentUser = userObj;
                 if (userObj == null)
                 {
                     ErrorMessage.Text = "Неверная почта или пароль";
@@ -84,8 +88,10 @@ namespace ParlamentSS
 
         private void ToMainVindowPerehod()
         {
+            var userObj = AppConnect.Model1.users.FirstOrDefault(x => x.email == UsernameTextBox.Text && x.password == PasswordBox.Password);
+
             // Переход к главному окну после успешной авторизации
-            ViewMainWindow ToMainWindow = new ViewMainWindow();
+            ViewMainWindow ToMainWindow = new ViewMainWindow(userObj.id_role);
             ToMainWindow.Show();
             this.Close();
         }

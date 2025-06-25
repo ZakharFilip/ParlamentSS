@@ -17,6 +17,7 @@ namespace ParlamentSS.AppData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public users()
         {
+            this.club_applications = new HashSet<club_applications>();
             this.party_members = new HashSet<party_members>();
         }
     
@@ -28,6 +29,8 @@ namespace ParlamentSS.AppData
         public string password { get; set; }
         public int id_role { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<club_applications> club_applications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<party_members> party_members { get; set; }
         public virtual roles roles { get; set; }

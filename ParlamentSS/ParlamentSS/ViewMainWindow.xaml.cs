@@ -25,7 +25,13 @@ namespace ParlamentSS
             // Загрузка стартовой страницы
             MainFrame.Navigate(new Uri("Pages/HomePage.xaml", UriKind.Relative));
         }
-
+        public ViewMainWindow(int a)
+        {
+            InitializeComponent();
+           
+            MainFrame.Navigate(new Uri("Pages/HomePage.xaml", UriKind.Relative));
+            if (a == 1 || a == 2) { buttonToAddParty.Visibility = Visibility.Visible; } else {  }
+        }
         private void NavigateToHomePage(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new Uri("Pages/HomePage.xaml", UriKind.Relative));

@@ -21,7 +21,7 @@
             <Button x:Name="buttonToHome" Content="Главная" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToHomePage"/>
-            <Button x:Name="buttonToAddParty" Content="Новый Клуб" 
+            <Button x:Name="buttonToAddParty" Visibility="Hidden" Content="Новый Клуб" 
                     Style="{StaticResource MenuButtonStyle}"
                     Click="NavigateToParlament"/>
 
