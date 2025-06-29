@@ -30,7 +30,7 @@ namespace ParlamentSS.Pages
         public HomePage()
         {
             InitializeComponent();
-            AppConnect.Model1 = new Entities3();
+            AppConnect.Model1 = new Entities2();
 
             List<parties> partie =  AppConnect.Model1.parties.ToList();
             PartiesListView.ItemsSource = partie;

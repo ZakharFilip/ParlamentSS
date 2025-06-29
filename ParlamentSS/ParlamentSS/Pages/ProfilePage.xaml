@@ -8,8 +8,67 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
 
-    <Grid>
-        <Button Content="Profile" HorizontalAlignment="Left" Margin="305,183,0,0" VerticalAlignment="Top"/>
+    <Grid Margin="0,0,-183,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
 
+        <ListView x:Name="listItemLog" 
+      
+      d:ItemsSource="{d:SampleData ItemCount=5}"
+      Grid.Row="1"
+      Grid.RowSpan="2"
+     SelectionChanged="listItemLog_SelectionChanged"
+   >
+            <ListView.ItemTemplate >
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55*"/>
+                            <ColumnDefinition Width="24*"/>
+                            <ColumnDefinition Width="181*"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" 
+                        Width="400" 
+                        Orientation="Vertical"
+                        Grid.ColumnSpan="2">
+
+                            <TextBlock >
+                    
+                        <Run Text="{Binding first_name}"/>
+                       <Run Text="|"/>
+                        <Run Text="{Binding last_name}"/>
+                            </TextBlock>
+
+                            <TextBlock >
+                        <Run Text="Почта:"/>
+                        <Run Text="{Binding email}"/>
+                            </TextBlock>
+
+                            <TextBlock >
+                        <Run Text="Ник:"/>
+                        <Run Text="{Binding nickname}"/>
+                            </TextBlock>
+
+                            <TextBlock >
+                        <Run Text="Роль:"/>
+                        <Run Text="{Binding roles.role_name}"/>
+                            </TextBlock>
+                       
+                        <TextBlock >
+                        <Run Text="Блокировка:"/>
+                        <Run Text="{Binding block}"/>
+                        </TextBlock>
+                            
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

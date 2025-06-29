@@ -28,6 +28,7 @@ namespace ParlamentSS.AppData
         public string nickname { get; set; }
         public string password { get; set; }
         public int id_role { get; set; }
+        public Nullable<int> block { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<club_applications> club_applications { get; set; }

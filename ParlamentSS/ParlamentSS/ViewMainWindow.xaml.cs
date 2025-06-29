@@ -39,7 +39,7 @@ namespace ParlamentSS
 
         private void NavigateToProfilePage(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new Uri("Pages/ProfilePage.xaml", UriKind.Relative)); //ИЗМЕНИТЬ АДРЕСС
+            MainFrame.Navigate(new Uri("Pages/ProfilePage.xaml", UriKind.Relative)); //профили
         }
 
         private void NavigateToSettingsPage(object sender, RoutedEventArgs e)
